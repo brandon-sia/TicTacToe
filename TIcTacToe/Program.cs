@@ -92,7 +92,7 @@ namespace TicTacToe
 
                 foreach (List<int> formula in winningFormula)
                 {
-                    if (GameRecord[player.Name].All(formula.Contains) && (formula.Count == GameRecord[player.Name].Count))
+                    if (formula.All(GameRecord[player.Name].Contains) && (formula.Count <= GameRecord[player.Name].Count))
                     {
                         return true;
                     }
@@ -108,11 +108,11 @@ namespace TicTacToe
                 {
                     Console.WriteLine($"It is {player1.Icon}'s turn.");
                     Board(GameRecord, player1, player2);
+                    Console.WriteLine(" ");
                     Console.WriteLine("What square do you want to play in?");
 
                     int square = int.Parse(Console.ReadKey().KeyChar.ToString());
-
-                    Console.WriteLine("");
+                    Console.WriteLine(" ");
 
                     if (numbers.Contains(square) && !GameRecord[player1.Name].Contains(square) && !checkSquare(square) )
                     {
@@ -139,6 +139,7 @@ namespace TicTacToe
                     if (CheckWin(player1))
                     {
                         Console.WriteLine($"Player {player1.Icon} won!");
+                        Board(GameRecord, player1, player2);
                         break;
                     }
 
@@ -147,11 +148,11 @@ namespace TicTacToe
                 {
                     Console.WriteLine($"It is {player2.Icon}'s turn.");
                     Board(GameRecord, player1, player2);
+                    Console.WriteLine(" ");
                     Console.WriteLine("What square do you want to play in?");
 
                     int square = int.Parse(Console.ReadKey().KeyChar.ToString());
-
-                    Console.WriteLine("");
+                    Console.WriteLine(" ");
 
                     if (numbers.Contains(square) && !GameRecord[player2.Name].Contains(square) && !checkSquare(square))
                     {
@@ -180,6 +181,7 @@ namespace TicTacToe
                     if (CheckWin(player2))
                     {
                         Console.WriteLine($"Player {player2.Icon} won!");
+                        Board(GameRecord, player1, player2);
                         break;
                     }
 
@@ -188,6 +190,7 @@ namespace TicTacToe
                 if ((!numbers.Except(GameRecord["Checked"]).Any()) && (numbers.Count == GameRecord["Checked"].Count))
                 {
                     Console.WriteLine($"This is a tie...");
+                    Board(GameRecord, player1, player2);
                     break;
                 }
 
